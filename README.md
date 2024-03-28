@@ -1,2 +1,3 @@
 # nacos-property-refresher-spring-boot-starter-examples
-The example project of nacos-property-refresher-spring-boot-starter.
+
+It is an example project of nacos-property-refresher-spring-boot-starter.

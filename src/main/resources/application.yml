@@ -1,0 +1,57 @@
+local:
+  config:
+    nacos:
+      namespace: "25b7d331e00a9b0938d302cd63af7d71"
+      host: "192.168.1.11"
+      port: 8848
+      username: "nacos"
+      password: "nacos"
+
+# ---------------------------------------------------------------------
+
+spring:
+  application:
+    name: "nacos-property-refresher-spring-boot-starter-examples"
+  profiles:
+    active: dev
+
+# ---------------------------------------------------------------------
+
+nacos:
+  config:
+    namespace: "${local.config.nacos.namespace}"
+    auto-refresh: true
+    bootstrap:
+      enable: true
+    config-long-poll-timeout: 6000
+    config-retry-time: 3
+    enable-remote-sync-config: true
+    group: DEFAULT_GROUP
+    max-retry: 10
+    username: ${local.config.nacos.username}
+    password: ${local.config.nacos.password}
+    remote-first: true
+    server-addr: "${local.config.nacos.host}:${local.config.nacos.port}"
+    type: yaml
+    data-ids: "${spring.application.name},\
+    ${spring.application.name}-${spring.profiles.active},\
+    ${spring.application.name}-app"
+
+# ---------------------------------------------------------------------
+
+# custom the /actuator/info endpoint
+info:
+  app:
+    name: "@project.artifactId@"
+    encoding: "@project.build.sourceEncoding@"
+    java:
+      source: "@java.version@"
+      target: "@java.version@"
+    env:
+      active: ${spring.profiles.active}
+
+# ---------------------------------------------------------------------
+
+logging:
+  pattern:
+    console: '%red(%d{yyyy-MM-dd HH:mm:ss.SSS}) %red([${spring.application.name}]) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger) - %cyan(%msg%n)'
