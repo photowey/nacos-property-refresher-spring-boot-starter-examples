@@ -15,7 +15,6 @@
  */
 package io.github.photowey.nacos.property.refresher.examples.listener;
 
-import com.alibaba.nacos.api.config.ConfigChangeEvent;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.shaded.com.google.common.collect.Lists;
 import io.github.photowey.nacos.property.refresher.listener.AbstractNacosDynamicRefreshListener;
@@ -41,15 +40,5 @@ public class HelloDynamicNacosConfigListener extends AbstractNacosDynamicRefresh
         for (ConfigService configService : configServices) {
             DYNAMIC_DATA_IDS.forEach(dataIdTemplate -> this.addTemplateListener(configService, dataIdTemplate));
         }
-    }
-
-    @Override
-    public void preRefresh(ConfigChangeEvent event) {
-        super.preRefresh(event);
-    }
-
-    @Override
-    public void posRefresh(ConfigChangeEvent event) {
-        super.posRefresh(event);
     }
 }
